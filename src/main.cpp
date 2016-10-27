@@ -1,17 +1,14 @@
 #include <iostream>
+#include "Cell.h"
 
 using namespace std;
 
-void fun(int &a){
-	a = 12;
-}
-
 int main(){
-	int a = 5;
-
-	cout << "a: " << a << endl;
-	fun(a);
-	cout << "a: " << a << endl;	
+	int const size = 9;
+	
+	Board board("../data/s01a.txt");
+	board.solve();
+	board.print();
 
 	return 0;
 }
