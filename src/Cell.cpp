@@ -1,24 +1,21 @@
 #include "Cell.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
 //Class Cell
-Cell::Cell(){
-	value = 0;
-	list = vector<int>(9);
+Cell::Cell() :
+	value(0), list(9)
+	{
 	for(int i(0); i<9;i++){
 		list[i] = i+1;
 	}
 }
-Cell::Cell(int v){
-	value = v;
-	list = vector<int>(1,v);
-}
 Cell::~Cell(){} // Destructor by default, not useful
 
 
-std::vector<int> Cell::getList() const{
+std::vector<int> const& Cell::getList() const{
 	return list;
 }
 
@@ -27,8 +24,9 @@ int Cell::getValue() const{
 }
 
 void Cell::setValue(int v){
-	value=v;
-	list = vector<int>(1,v);
+	value = v;
+	list.clear();
+	list.push_back(v);
 }
 
 void Cell::removeValue(int v){
@@ -44,8 +42,26 @@ void Cell::print() const{
 	cout << s << endl;
 }
 //End Class Cell
+
+
 //Class Board
-Board::Board(string filename){}
+Board::Board(string filename){
+	ifstream in(filename);
+	if(!in){
+        cout << "ERROR while reading the input file: " << filename << endl;
+		return;
+	}
+	int val(0);
+	for(int i(0); i<9; ++i){
+		for(int j(0); j<9; ++j){
+			in >> val;
+			cout << val << endl;
+			if(val){
+				tab[i][j].setValue(val);
+			}
+		}
+	}
+}
 Board::~Board(){}
 	
 void Board::solve(){

@@ -10,5 +10,6 @@ int main(){
 	board.solve();
 	board.print();
 
+
 	return 0;
 }
